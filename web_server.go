@@ -15,10 +15,10 @@ var storage = datastore.New()
 // TODO: add tests and load tests
 func main() {
 	// TODO: populate items storage externally, not in code
-	storage.Set("name", datatype.New("Roman", 1*time.Minute))
-	storage.Set("age", datatype.New("35", 5*time.Minute))
-	storage.Set("weight", datatype.New("82.5kg", 2*time.Minute))
-	storage.Set("car", datatype.New("Renault", 3*time.Minute))
+	storage.Set("name", datatype.NewString("Roman", 1*time.Minute))
+	storage.Set("age", datatype.NewString("35", 5*time.Minute))
+	storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
+	storage.Set("car", datatype.NewString("Renault", 3*time.Minute))
 
 	scheduler.Every(10).Seconds().Run(cleanupExpiredItems)
 

@@ -8,6 +8,6 @@ type DataType struct {
 	DeathTime time.Time `json:"deathTime"`
 }
 
-func New(value string, duration time.Duration) DataType {
+func NewString(value string, duration time.Duration) DataType {
 	return DataType{value, duration, time.Now().Add(duration)}
 }

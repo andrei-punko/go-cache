@@ -16,7 +16,7 @@ func TestNew(t *testing.T) {
 func TestDataStore_set(t *testing.T) {
 	dataStore := New()
 	key := "Some key"
-	value := datatype.New("Some value", time.Minute)
+	value := datatype.NewString("Some value", time.Minute)
 
 	dataStore.set(key, value)
 	actualValue, _ := dataStore.cache.Get(key)
@@ -26,7 +26,7 @@ func TestDataStore_set(t *testing.T) {
 func TestDataStore_get(t *testing.T) {
 	dataStore := New()
 	key := "Some key"
-	value := datatype.New("Some value", time.Minute)
+	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
 
 	actualValue, ok := dataStore.get(key)
@@ -36,8 +36,8 @@ func TestDataStore_get(t *testing.T) {
 
 func TestDataStore_getKeys(t *testing.T) {
 	dataStore := New()
-	dataStore.cache.Insert("key 1", datatype.New("value 1", time.Minute))
-	dataStore.cache.Insert("key 2", datatype.New("value 2", time.Minute))
+	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
+	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
 	keys := dataStore.getKeys()
 	assert.Equal(t, len(keys), 2)
@@ -48,7 +48,7 @@ func TestDataStore_getKeys(t *testing.T) {
 func TestDataStore_delete(t *testing.T) {
 	dataStore := New()
 	key := "Some key"
-	value := datatype.New("Some value", time.Minute)
+	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
 
 	assert.Equal(t, dataStore.delete(key), true, "existing key")
@@ -59,9 +59,9 @@ func TestDataStore_delete(t *testing.T) {
 
 func TestDataStore_batchDelete(t *testing.T) {
 	dataStore := New()
-	dataStore.cache.Insert("key 1", datatype.New("value 1", time.Minute))
-	dataStore.cache.Insert("key 2", datatype.New("value 2", time.Minute))
-	dataStore.cache.Insert("key 3", datatype.New("value 3", time.Minute))
+	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
+	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
+	dataStore.cache.Insert("key 3", datatype.NewString("value 3", time.Minute))
 	keys := util.StringListToInterfaceList([]string{"key 1", "key N", "key 2", "key Z"})
 
 	results := dataStore.batchDelete(keys)
@@ -73,9 +73,9 @@ func TestDataStore_batchDelete(t *testing.T) {
 
 func TestDataStore_BatchDelete(t *testing.T) {
 	dataStore := New()
-	dataStore.cache.Insert("key 1", datatype.New("value 1", time.Minute))
-	dataStore.cache.Insert("key 2", datatype.New("value 2", time.Minute))
-	dataStore.cache.Insert("key 3", datatype.New("value 3", time.Minute))
+	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
+	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
+	dataStore.cache.Insert("key 3", datatype.NewString("value 3", time.Minute))
 	keys := util.StringListToInterfaceList([]string{"key 1", "key N", "key 2", "key Z"})
 
 	results := dataStore.BatchDelete(keys)
@@ -88,7 +88,7 @@ func TestDataStore_BatchDelete(t *testing.T) {
 func TestDataStore_contains(t *testing.T) {
 	dataStore := New()
 	key := "Some key"
-	value := datatype.New("Some value", time.Minute)
+	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
 
 	assert.Equal(t, dataStore.contains(key), true, "existing key")
@@ -97,8 +97,8 @@ func TestDataStore_contains(t *testing.T) {
 
 func TestDataStore_count(t *testing.T) {
 	dataStore := New()
-	dataStore.cache.Insert("key 1", datatype.New("value 1", time.Minute))
-	dataStore.cache.Insert("key 2", datatype.New("value 2", time.Minute))
+	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
+	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
 	assert.Equal(t, dataStore.count(), 2)
 }
@@ -106,7 +106,7 @@ func TestDataStore_count(t *testing.T) {
 func TestDataStore_Set(t *testing.T) {
 	dataStore := New()
 	key := "Some key"
-	value := datatype.New("Some value", time.Minute)
+	value := datatype.NewString("Some value", time.Minute)
 
 	dataStore.Set(key, value)
 	actualValue, _ := dataStore.cache.Get(key)
@@ -116,7 +116,7 @@ func TestDataStore_Set(t *testing.T) {
 func TestDataStore_Get(t *testing.T) {
 	dataStore := New()
 	key := "Some key"
-	value := datatype.New("Some value", time.Minute)
+	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
 
 	res, ok := dataStore.Get(key)
@@ -132,8 +132,8 @@ func TestDataStore_Get(t *testing.T) {
 
 func TestDataStore_GetKeys(t *testing.T) {
 	dataStore := New()
-	dataStore.cache.Insert("key 1", datatype.New("value 1", time.Minute))
-	dataStore.cache.Insert("key 2", datatype.New("value 2", time.Minute))
+	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
+	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
 	keys := dataStore.GetKeys()
 	assert.Equal(t, len(keys), 2)
@@ -144,7 +144,7 @@ func TestDataStore_GetKeys(t *testing.T) {
 func TestDataStore_Delete(t *testing.T) {
 	dataStore := New()
 	key := "Some key"
-	value := datatype.New("Some value", time.Minute)
+	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
 
 	assert.Equal(t, dataStore.Delete(key), true, "existing key")
@@ -156,7 +156,7 @@ func TestDataStore_Delete(t *testing.T) {
 func TestDataStore_Contains(t *testing.T) {
 	dataStore := New()
 	key := "Some key"
-	value := datatype.New("Some value", time.Minute)
+	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
 
 	assert.Equal(t, dataStore.Contains(key), true, "existing key")
@@ -165,8 +165,8 @@ func TestDataStore_Contains(t *testing.T) {
 
 func TestDataStore_Count(t *testing.T) {
 	dataStore := New()
-	dataStore.cache.Insert("key 1", datatype.New("value 1", time.Minute))
-	dataStore.cache.Insert("key 2", datatype.New("value 2", time.Minute))
+	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
+	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
 	assert.Equal(t, dataStore.Count(), 2)
 }
