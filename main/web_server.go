@@ -1,9 +1,9 @@
 package main
 
 import (
-	"encoding/json"
 	"github.com/carlescere/scheduler"
 	"github.com/gorilla/mux"
+	json "github.com/json-iterator/go"
 	"go-cache/datastore"
 	"go-cache/datatype"
 	"net/http"
@@ -19,6 +19,8 @@ func main() {
 	storage.Set("age", datatype.NewString("35", 5*time.Minute))
 	storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
 	storage.Set("car", datatype.NewString("Renault", 3*time.Minute))
+	storage.Set("phones", datatype.NewList([]interface{}{"Xiaomi", "Apple"}, 10*time.Minute))
+	storage.Set("cards", datatype.NewDict(map[interface{}]interface{}{2: "Visa", 3: "Maestro"}, 11*time.Minute))
 
 	scheduler.Every(10).Seconds().Run(cleanupExpiredItems)
 
