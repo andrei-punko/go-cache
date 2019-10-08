@@ -3,9 +3,9 @@ package datatype
 import "time"
 
 type DataType struct {
-	Value     interface{} `json:"value"`
-	ttl       time.Duration
-	DeathTime time.Time `json:"deathTime"`
+	Value     interface{}   `json:"value"`
+	Ttl       time.Duration `json:"ttl"`
+	DeathTime time.Time     `json:"deathTime"`
 }
 
 func NewString(value string, duration time.Duration) DataType {

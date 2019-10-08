@@ -58,6 +58,7 @@ func CreateString(writer http.ResponseWriter, request *http.Request) {
 		populateResponseWriter(writer, http.StatusInternalServerError)
 		return
 	}
+	value.DeathTime = time.Now().Add(value.Ttl)
 
 	vars := mux.Vars(request)
 	key := vars["key"]
