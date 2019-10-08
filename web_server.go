@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/carlescere/scheduler"
 	"github.com/gorilla/mux"
-	"go-sandbox/cache/datastore"
-	"go-sandbox/cache/datatype"
+	"go-cache/datastore"
+	"go-cache/datatype"
 	"net/http"
 	"time"
 )

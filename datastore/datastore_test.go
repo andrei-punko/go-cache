@@ -2,8 +2,8 @@ package datastore
 
 import (
 	"github.com/stretchr/testify/assert"
-	"go-sandbox/cache/datatype"
-	"go-sandbox/cache/util"
+	"go-cache/datatype"
+	"go-cache/util"
 	"testing"
 	"time"
 )

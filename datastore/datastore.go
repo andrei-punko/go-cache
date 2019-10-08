@@ -2,7 +2,7 @@ package datastore
 
 import (
 	"github.com/umpc/go-sortedmap"
-	"go-sandbox/cache/datatype"
+	"go-cache/datatype"
 	"sync"
 )
 
