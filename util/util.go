@@ -17,3 +17,21 @@ func StringListToInterfaceList(list []string) []interface{} {
 	}
 	return res
 }
+
+func Contains(arr []interface{}, item interface{}) bool {
+	for _, a := range arr {
+		if a == item {
+			return true
+		}
+	}
+	return false
+}
+
+func ContainsAll(arr []interface{}, items []interface{}) bool {
+	for _, item := range items {
+		if !Contains(arr, item) {
+			return false
+		}
+	}
+	return true
+}

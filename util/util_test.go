@@ -20,3 +20,20 @@ func TestStringListToInterfaceList(t *testing.T) {
 	expectedArray := []interface{}{"str 1", "str 2"}
 	assert.Equal(t, expectedArray, array2)
 }
+
+func TestContains(t *testing.T) {
+	arr := []interface{}{"one", "five"}
+
+	assert.Equal(t, true, Contains(arr, "one"), "Should contain first item")
+	assert.Equal(t, true, Contains(arr, "five"), "Should contain second item")
+	assert.Equal(t, false, Contains(arr, "six"), "Shouldn't contain another item")
+}
+
+func TestContainsAll(t *testing.T) {
+	arr := []interface{}{"one", "five"}
+	items := []interface{}{"one", "five"}
+	items2 := []interface{}{"one", "six"}
+
+	assert.Equal(t, true, ContainsAll(arr, items), "Should contain all items from set")
+	assert.Equal(t, false, ContainsAll(arr, items2), "Should not contain all items from another set")
+}
