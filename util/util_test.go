@@ -37,3 +37,7 @@ func TestContainsAll(t *testing.T) {
 	assert.Equal(t, true, ContainsAll(arr, items), "Should contain all items from set")
 	assert.Equal(t, false, ContainsAll(arr, items2), "Should not contain all items from another set")
 }
+
+func TestRandString(t *testing.T) {
+	assert.NotEqual(t, RandString(10), RandString(10), "Generated strings should not be same")
+}
