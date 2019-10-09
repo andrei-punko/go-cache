@@ -10,17 +10,17 @@ import (
 	"time"
 )
 
-var storage = datastore.New()
+var Storage = datastore.New()
 
-// TODO: add tests and load tests
+// TODO: add load tests
 func main() {
-	// TODO: populate items storage externally, not in code
-	storage.Set("name", datatype.NewString("Roman", 1*time.Minute))
-	storage.Set("age", datatype.NewString("35", 5*time.Minute))
-	storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
-	storage.Set("car", datatype.NewString("Renault", 3*time.Minute))
-	storage.Set("phones", datatype.NewList([]interface{}{"Xiaomi", "Apple"}, 10*time.Minute))
-	storage.Set("cards", datatype.NewDict(map[interface{}]interface{}{2: "Visa", 3: "Maestro"}, 11*time.Minute))
+	// TODO: populate items Storage externally, not in code
+	Storage.Set("name", datatype.NewString("Roman", 1*time.Minute))
+	Storage.Set("age", datatype.NewString("35", 5*time.Minute))
+	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
+	Storage.Set("car", datatype.NewString("Renault", 3*time.Minute))
+	Storage.Set("phones", datatype.NewList([]interface{}{"Xiaomi", "Apple"}, 10*time.Minute))
+	Storage.Set("cards", datatype.NewDict(map[interface{}]interface{}{2: "Visa", 3: "Maestro"}, 11*time.Minute))
 
 	scheduler.Every(10).Seconds().Run(cleanupExpiredItems)
 
@@ -35,10 +35,10 @@ func main() {
 
 func cleanupExpiredItems() {
 	// TODO: replace with more effective cleanup method
-	keys := storage.GetKeys()
+	keys := Storage.GetKeys()
 	mostRightIndex := -1
 	for index, key := range keys {
-		value, _ := storage.Get(key.(string))
+		value, _ := Storage.Get(key.(string))
 		dataTypeItem := value.(datatype.DataType)
 		if dataTypeItem.DeathTime.Before(time.Now()) {
 			mostRightIndex = index
@@ -47,7 +47,7 @@ func cleanupExpiredItems() {
 		}
 	}
 	if mostRightIndex != -1 {
-		storage.BatchDelete(keys[:mostRightIndex+1])
+		Storage.BatchDelete(keys[:mostRightIndex+1])
 	}
 }
 
@@ -62,7 +62,7 @@ func CreateString(writer http.ResponseWriter, request *http.Request) {
 
 	vars := mux.Vars(request)
 	key := vars["key"]
-	storage.Set(key, value)
+	Storage.Set(key, value)
 	resultJson, err := json.Marshal(value)
 	if err != nil {
 		populateResponseWriter(writer, http.StatusInternalServerError)
@@ -76,7 +76,7 @@ func CreateString(writer http.ResponseWriter, request *http.Request) {
 func ReadString(writer http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	key := vars["key"]
-	value, ok := storage.Get(key)
+	value, ok := Storage.Get(key)
 	if !ok {
 		populateResponseWriter(writer, http.StatusNotFound)
 		return
@@ -93,7 +93,7 @@ func ReadString(writer http.ResponseWriter, request *http.Request) {
 }
 
 func ReadStringKeys(writer http.ResponseWriter, request *http.Request) {
-	keys := storage.GetKeys()
+	keys := Storage.GetKeys()
 	resultJson, err := json.Marshal(keys)
 	if err != nil {
 		populateResponseWriter(writer, http.StatusInternalServerError)
@@ -107,7 +107,7 @@ func ReadStringKeys(writer http.ResponseWriter, request *http.Request) {
 func DeleteString(writer http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	key := vars["key"]
-	if ok := storage.Delete(key); !ok {
+	if ok := Storage.Delete(key); !ok {
 		populateResponseWriter(writer, http.StatusNotFound)
 		return
 	}
