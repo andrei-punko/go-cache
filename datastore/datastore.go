@@ -13,12 +13,18 @@ type DataStore struct {
 
 func New() *DataStore {
 	return &DataStore{
-		cache: *sortedmap.New(10, func(item1, item2 interface{}) bool {
-			dt1 := item1.(datatype.DataType)
-			dt2 := item2.(datatype.DataType)
-			return dt1.DeathTime.Before(dt2.DeathTime)
-		}),
+		cache: buildSortedMap(),
 	}
+}
+
+func compareDataTypeItems(item1, item2 interface{}) bool {
+	dt1 := item1.(datatype.DataType)
+	dt2 := item2.(datatype.DataType)
+	return dt1.DeathTime.Before(dt2.DeathTime)
+}
+
+func buildSortedMap() sortedmap.SortedMap {
+	return *sortedmap.New(10, compareDataTypeItems)
 }
 
 func (ds *DataStore) set(key string, value datatype.DataType) {
@@ -90,4 +96,14 @@ func (ds *DataStore) Count() int {
 	ds.RLock()
 	defer ds.RUnlock()
 	return ds.count()
+}
+
+func (ds *DataStore) Clear() {
+	ds.RLock()
+	defer ds.RUnlock()
+	ds.clear()
+}
+
+func (ds *DataStore) clear() {
+	ds.cache = buildSortedMap()
 }

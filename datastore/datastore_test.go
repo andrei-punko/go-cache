@@ -103,6 +103,15 @@ func TestDataStore_count(t *testing.T) {
 	assert.Equal(t, dataStore.count(), 2)
 }
 
+func TestDataStore_clear(t *testing.T) {
+	dataStore := New()
+	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
+	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
+
+	dataStore.clear()
+	assert.Equal(t, 0, dataStore.cache.Len(), "Storage should be empty")
+}
+
 func TestDataStore_Set(t *testing.T) {
 	dataStore := New()
 	key := "Some key"
@@ -169,4 +178,19 @@ func TestDataStore_Count(t *testing.T) {
 	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
 	assert.Equal(t, dataStore.Count(), 2)
+}
+
+func TestDataStore_Clear(t *testing.T) {
+	dataStore := New()
+	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
+	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
+
+	dataStore.Clear()
+	assert.Equal(t, 0, dataStore.cache.Len(), "Storage should be empty")
+}
+
+func TestDataStore_compareDataTypeItems(t *testing.T) {
+	dt1 := datatype.NewString("value 1", time.Minute)
+	dt2 := datatype.NewString("value 2", 2*time.Minute)
+	assert.Equal(t, true, compareDataTypeItems(dt1, dt2))
 }
