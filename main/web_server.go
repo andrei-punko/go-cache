@@ -25,10 +25,10 @@ func main() {
 	scheduler.Every(10).Seconds().Run(cleanupExpiredItems)
 
 	router := mux.NewRouter()
-	router.HandleFunc("/items/{key}", CreateString).Methods(http.MethodPost)
-	router.HandleFunc("/items/keys", ReadStringKeys).Methods(http.MethodGet)
-	router.HandleFunc("/items/{key}", ReadString).Methods(http.MethodGet)
-	router.HandleFunc("/items/{key}", DeleteString).Methods(http.MethodDelete)
+	router.HandleFunc("/items/{key}", CreateItem).Methods(http.MethodPost)
+	router.HandleFunc("/items/keys", ReadKeys).Methods(http.MethodGet)
+	router.HandleFunc("/items/{key}", ReadItem).Methods(http.MethodGet)
+	router.HandleFunc("/items/{key}", DeleteItem).Methods(http.MethodDelete)
 
 	http.ListenAndServe(":8000", router)
 }
@@ -51,7 +51,7 @@ func cleanupExpiredItems() {
 	}
 }
 
-func CreateString(writer http.ResponseWriter, request *http.Request) {
+func CreateItem(writer http.ResponseWriter, request *http.Request) {
 	var value datatype.DataType
 	err := json.NewDecoder(request.Body).Decode(&value)
 	if err != nil {
@@ -73,7 +73,7 @@ func CreateString(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(resultJson)
 }
 
-func ReadString(writer http.ResponseWriter, request *http.Request) {
+func ReadItem(writer http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	key := vars["key"]
 	value, ok := Storage.Get(key)
@@ -92,7 +92,7 @@ func ReadString(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(resultJson)
 }
 
-func ReadStringKeys(writer http.ResponseWriter, request *http.Request) {
+func ReadKeys(writer http.ResponseWriter, request *http.Request) {
 	keys := Storage.GetKeys()
 	resultJson, err := json.Marshal(keys)
 	if err != nil {
@@ -104,7 +104,7 @@ func ReadStringKeys(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(resultJson)
 }
 
-func DeleteString(writer http.ResponseWriter, request *http.Request) {
+func DeleteItem(writer http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	key := vars["key"]
 	if ok := Storage.Delete(key); !ok {

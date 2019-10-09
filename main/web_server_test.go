@@ -18,7 +18,7 @@ func TestCreateString(t *testing.T) {
 	Storage.Clear()
 
 	router := mux.NewRouter()
-	router.HandleFunc("/items/{key}", CreateString).Methods(http.MethodPost)
+	router.HandleFunc("/items/{key}", CreateItem).Methods(http.MethodPost)
 	server := httptest.NewServer(router)
 	defer server.Close()
 	itemsUrl := fmt.Sprintf("%s/items/name", server.URL)
@@ -55,7 +55,7 @@ func TestReadString(t *testing.T) {
 	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
 
 	router := mux.NewRouter()
-	router.HandleFunc("/items/{key}", ReadString).Methods(http.MethodGet)
+	router.HandleFunc("/items/{key}", ReadItem).Methods(http.MethodGet)
 	server := httptest.NewServer(router)
 	defer server.Close()
 	itemsUrl := fmt.Sprintf("%s/items/weight", server.URL)
@@ -85,7 +85,7 @@ func TestReadStringKeys(t *testing.T) {
 	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
 
 	router := mux.NewRouter()
-	router.HandleFunc("/items/keys", ReadStringKeys).Methods(http.MethodGet)
+	router.HandleFunc("/items/keys", ReadKeys).Methods(http.MethodGet)
 	server := httptest.NewServer(router)
 	defer server.Close()
 	usersUrl := fmt.Sprintf("%s/items/keys", server.URL)
@@ -113,7 +113,7 @@ func TestDeleteString(t *testing.T) {
 	Storage.Set("name", datatype.NewString("Ivan", 2*time.Minute))
 
 	router := mux.NewRouter()
-	router.HandleFunc("/items/{key}", DeleteString).Methods(http.MethodDelete)
+	router.HandleFunc("/items/{key}", DeleteItem).Methods(http.MethodDelete)
 	server := httptest.NewServer(router)
 	defer server.Close()
 	usersUrl := fmt.Sprintf("%s/items/name", server.URL)
