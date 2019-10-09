@@ -13,7 +13,7 @@ func TestNewString(t *testing.T) {
 
 	dataType := NewString(value, duration)
 	assert.Equal(t, dataType.Value, value)
-	assert.Equal(t, dataType.ttl, duration)
+	assert.Equal(t, dataType.Ttl, duration)
 	assert.Equal(t, dataType.DeathTime, expectedDeathTime)
 }
 
@@ -24,7 +24,7 @@ func TestNewList(t *testing.T) {
 
 	dataType := NewList(value, duration)
 	assert.Equal(t, dataType.Value, value)
-	assert.Equal(t, dataType.ttl, duration)
+	assert.Equal(t, dataType.Ttl, duration)
 	assert.Equal(t, dataType.DeathTime, expectedDeathTime)
 }
 
@@ -35,6 +35,6 @@ func TestNewDict(t *testing.T) {
 
 	dataType := NewDict(value, duration)
 	assert.Equal(t, dataType.Value, value)
-	assert.Equal(t, dataType.ttl, duration)
+	assert.Equal(t, dataType.Ttl, duration)
 	assert.Equal(t, dataType.DeathTime, expectedDeathTime)
 }
