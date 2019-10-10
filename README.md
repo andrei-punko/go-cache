@@ -20,7 +20,14 @@ Optional features:
 
 ---
 
-### Description of web-cache usage
+## In-memory web-cache
+
+### Build for definite OS and architecture
+`env GOOS=linux GOARCH=amd64 go build -o ./out/linux-amd64/web-cache ./main/web_server.go`
+
+`env GOOS=windows GOARCH=amd64 go build -o ./out/windows-amd64/web-cache.exe ./main/web_server.go`
+
+### Description of usage
 
 #### Start cache using default port 8000
 `go run ./main/web_server.go`
