@@ -100,7 +100,6 @@ func ReadItem(writer http.ResponseWriter, request *http.Request) {
 
 // ReadKeys reads and returns all keys saved in storage.
 func ReadKeys(writer http.ResponseWriter, request *http.Request) {
-	// TODO: ReadKeys should return empty list instead of null in case of empty cache
 	keys := Storage.GetKeys()
 	resultJson, err := json.Marshal(keys)
 	if err != nil {

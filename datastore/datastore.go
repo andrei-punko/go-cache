@@ -39,7 +39,11 @@ func (ds *DataStore) get(key string) (interface{}, bool) {
 }
 
 func (ds *DataStore) getKeys() []interface{} {
-	return ds.cache.Keys()
+	keys := ds.cache.Keys()
+	if keys == nil {
+		return []interface{}{}
+	}
+	return keys
 }
 
 func (ds *DataStore) delete(key interface{}) bool {

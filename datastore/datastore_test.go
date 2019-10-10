@@ -142,10 +142,13 @@ func TestDataStore_Get(t *testing.T) {
 
 func TestDataStore_GetKeys(t *testing.T) {
 	dataStore := New()
+	keys := dataStore.GetKeys()
+	assert.Equal(t, []interface{}{}, keys, "Should return empty array in case of empty storage")
+
 	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
 	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
-	keys := dataStore.GetKeys()
+	keys = dataStore.GetKeys()
 	assert.Equal(t, len(keys), 2)
 	assert.Contains(t, keys, "key 1")
 	assert.Contains(t, keys, "key 2")
