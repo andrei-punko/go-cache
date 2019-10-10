@@ -129,3 +129,26 @@ func TestDeleteString(t *testing.T) {
 	}
 	assert.Equal(t, false, Storage.Contains("name"), "Key should not be present in storage")
 }
+
+func TestClear(t *testing.T) {
+	Storage.Clear()
+	Storage.Set("name", datatype.NewString("Ivan", 2*time.Minute))
+	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
+
+	router := mux.NewRouter()
+	router.HandleFunc("/items/keys", Clear).Methods(http.MethodDelete)
+	server := httptest.NewServer(router)
+	defer server.Close()
+	itemsUrl := fmt.Sprintf("%s/items/keys", server.URL)
+	request, err := http.NewRequest(http.MethodDelete, itemsUrl, nil)
+
+	response, err := http.DefaultClient.Do(request)
+
+	if err != nil {
+		t.Error(err)
+	}
+	if response.StatusCode != 204 {
+		t.Errorf("HTTP Status expected: 204, got: %d", response.StatusCode)
+	}
+	assert.Equal(t, 0, Storage.Count(), "Storage should be empty")
+}

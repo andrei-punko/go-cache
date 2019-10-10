@@ -27,6 +27,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/items/{key}", CreateItem).Methods(http.MethodPost)
 	router.HandleFunc("/items/keys", ReadKeys).Methods(http.MethodGet)
+	router.HandleFunc("/items/keys", Clear).Methods(http.MethodDelete)
 	router.HandleFunc("/items/{key}", ReadItem).Methods(http.MethodGet)
 	router.HandleFunc("/items/{key}", DeleteItem).Methods(http.MethodDelete)
 
@@ -117,6 +118,12 @@ func DeleteItem(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	populateResponseWriter(writer, http.StatusNoContent)
+}
+
+// Clear removes all items from storage.
+func Clear(writer http.ResponseWriter, request *http.Request) {
+	Storage.Clear()
 	populateResponseWriter(writer, http.StatusNoContent)
 }
 
