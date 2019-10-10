@@ -88,8 +88,8 @@ func TestReadStringKeys(t *testing.T) {
 	router.HandleFunc("/items/keys", ReadKeys).Methods(http.MethodGet)
 	server := httptest.NewServer(router)
 	defer server.Close()
-	usersUrl := fmt.Sprintf("%s/items/keys", server.URL)
-	request, err := http.NewRequest(http.MethodGet, usersUrl, nil)
+	itemsUrl := fmt.Sprintf("%s/items/keys", server.URL)
+	request, err := http.NewRequest(http.MethodGet, itemsUrl, nil)
 
 	response, err := http.DefaultClient.Do(request)
 
@@ -116,8 +116,8 @@ func TestDeleteString(t *testing.T) {
 	router.HandleFunc("/items/{key}", DeleteItem).Methods(http.MethodDelete)
 	server := httptest.NewServer(router)
 	defer server.Close()
-	usersUrl := fmt.Sprintf("%s/items/name", server.URL)
-	request, err := http.NewRequest(http.MethodDelete, usersUrl, nil)
+	itemsUrl := fmt.Sprintf("%s/items/name", server.URL)
+	request, err := http.NewRequest(http.MethodDelete, itemsUrl, nil)
 
 	response, err := http.DefaultClient.Do(request)
 
