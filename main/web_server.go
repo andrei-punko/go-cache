@@ -7,6 +7,7 @@ import (
 	"go-cache/datastore"
 	"go-cache/datatype"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -31,7 +32,14 @@ func main() {
 	router.HandleFunc("/items/{key}", ReadItem).Methods(http.MethodGet)
 	router.HandleFunc("/items/{key}", DeleteItem).Methods(http.MethodDelete)
 
-	http.ListenAndServe(":8000", router)
+	http.ListenAndServe(":" + determinePort(), router)
+}
+
+func determinePort() string {
+	if len(os.Args) == 1 {
+		return "8000"
+	}
+	return os.Args[1]
 }
 
 // cleanupExpiredItems removes expired items from storage.
