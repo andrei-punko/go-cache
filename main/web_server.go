@@ -6,6 +6,7 @@ import (
 	json "github.com/json-iterator/go"
 	"go-cache/datastore"
 	"go-cache/datatype"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -13,8 +14,10 @@ import (
 
 var Storage = datastore.New()
 
-// TODO: add load tests
+// TODO: add end-to-end load tests and commit results to repo
 func main() {
+	port := extractPortFromCmdParams()
+	log.Printf("Starting web-cache on port %s ...", port)
 	scheduler.Every(10).Seconds().Run(cleanupExpiredItems)
 
 	router := mux.NewRouter()
@@ -24,10 +27,10 @@ func main() {
 	router.HandleFunc("/items/{key}", ReadItem).Methods(http.MethodGet)
 	router.HandleFunc("/items/{key}", DeleteItem).Methods(http.MethodDelete)
 
-	http.ListenAndServe(":" + determinePort(), router)
+	http.ListenAndServe(":"+port, router)
 }
 
-func determinePort() string {
+func extractPortFromCmdParams() string {
 	if len(os.Args) == 1 {
 		return "8000"
 	}
@@ -36,7 +39,6 @@ func determinePort() string {
 
 // cleanupExpiredItems removes expired items from storage.
 func cleanupExpiredItems() {
-	// TODO: replace with more effective cleanup method
 	keys := Storage.GetKeys()
 	mostRightIndex := -1
 	for index, key := range keys {
@@ -98,6 +100,7 @@ func ReadItem(writer http.ResponseWriter, request *http.Request) {
 
 // ReadKeys reads and returns all keys saved in storage.
 func ReadKeys(writer http.ResponseWriter, request *http.Request) {
+	// TODO: ReadKeys should return empty list instead of null in case of empty cache
 	keys := Storage.GetKeys()
 	resultJson, err := json.Marshal(keys)
 	if err != nil {
