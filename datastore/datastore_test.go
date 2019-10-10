@@ -189,8 +189,8 @@ func TestDataStore_Clear(t *testing.T) {
 	assert.Equal(t, 0, dataStore.cache.Len(), "Storage should be empty")
 }
 
-func TestDataStore_compareDataTypeItems(t *testing.T) {
+func TestDataStore_compareDataTypesByDeathTime(t *testing.T) {
 	dt1 := datatype.NewString("value 1", time.Minute)
 	dt2 := datatype.NewString("value 2", 2*time.Minute)
-	assert.Equal(t, true, compareDataTypeItems(dt1, dt2))
+	assert.Equal(t, true, compareDataTypesByDeathTime(dt1, dt2))
 }

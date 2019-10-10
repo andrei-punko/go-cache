@@ -17,18 +17,18 @@ func New() *DataStore {
 	}
 }
 
-func compareDataTypeItems(item1, item2 interface{}) bool {
+func compareDataTypesByDeathTime(item1, item2 interface{}) bool {
 	dt1 := item1.(datatype.DataType)
 	dt2 := item2.(datatype.DataType)
 	return dt1.DeathTime.Before(dt2.DeathTime)
 }
 
 func buildSortedMap() sortedmap.SortedMap {
-	return *sortedmap.New(10, compareDataTypeItems)
+	return *sortedmap.New(10, compareDataTypesByDeathTime)
 }
 
 func (ds *DataStore) set(key string, value datatype.DataType) {
-	ds.cache.Insert(key, value)
+	ds.cache.Replace(key, value)
 }
 
 func (ds *DataStore) get(key string) (interface{}, bool) {
@@ -99,8 +99,8 @@ func (ds *DataStore) Count() int {
 }
 
 func (ds *DataStore) Clear() {
-	ds.RLock()
-	defer ds.RUnlock()
+	ds.Lock()
+	defer ds.Unlock()
 	ds.clear()
 }
 

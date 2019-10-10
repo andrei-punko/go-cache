@@ -8,14 +8,14 @@ type DataType struct {
 	DeathTime time.Time     `json:"deathTime"`
 }
 
-func NewString(value string, duration time.Duration) DataType {
-	return DataType{value, duration, time.Now().Add(duration)}
+func NewString(value string, ttl time.Duration) DataType {
+	return DataType{value, ttl, time.Now().Add(ttl)}
 }
 
-func NewList(value []interface{}, duration time.Duration) DataType {
-	return DataType{value, duration, time.Now().Add(duration)}
+func NewList(value []interface{}, ttl time.Duration) DataType {
+	return DataType{value, ttl, time.Now().Add(ttl)}
 }
 
-func NewDict(value map[interface{}]interface{}, duration time.Duration) DataType {
-	return DataType{value, duration, time.Now().Add(duration)}
+func NewDict(value map[interface{}]interface{}, ttl time.Duration) DataType {
+	return DataType{value, ttl, time.Now().Add(ttl)}
 }
