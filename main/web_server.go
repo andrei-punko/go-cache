@@ -15,14 +15,6 @@ var Storage = datastore.New()
 
 // TODO: add load tests
 func main() {
-	// TODO: populate items Storage externally, not in code
-	Storage.Set("name", datatype.NewString("Roman", 1*time.Minute))
-	Storage.Set("age", datatype.NewString("35", 5*time.Minute))
-	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
-	Storage.Set("car", datatype.NewString("Renault", 3*time.Minute))
-	Storage.Set("phones", datatype.NewList([]interface{}{"Xiaomi", "Apple"}, 10*time.Minute))
-	Storage.Set("cards", datatype.NewDict(map[interface{}]interface{}{2: "Visa", 3: "Maestro"}, 11*time.Minute))
-
 	scheduler.Every(10).Seconds().Run(cleanupExpiredItems)
 
 	router := mux.NewRouter()

@@ -1,6 +1,7 @@
 package datastore
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"go-cache/datatype"
 	"go-cache/util"
@@ -193,4 +194,65 @@ func TestDataStore_compareDataTypesByDeathTime(t *testing.T) {
 	dt1 := datatype.NewString("value 1", time.Minute)
 	dt2 := datatype.NewString("value 2", 2*time.Minute)
 	assert.Equal(t, true, compareDataTypesByDeathTime(dt1, dt2))
+}
+
+func ExampleDataStore_Set() {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("phones", datatype.NewList([]interface{}{"Xiaomi", "Samsung"}, 2*time.Minute))
+	storage.Set("cards", datatype.NewDict(map[interface{}]interface{}{2: "Visa", 3: "Maestro"}, 4*time.Minute))
+	fmt.Println(storage.GetKeys())
+}
+
+func ExampleDataStore_Get() {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+	fmt.Println(storage.Get("name"))
+}
+
+func ExampleDataStore_GetKeys() {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+	fmt.Println(storage.GetKeys())
+}
+
+func ExampleDataStore_Delete() {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+	storage.Delete("name")
+	fmt.Println(storage.GetKeys())
+}
+
+func ExampleDataStore_BatchDelete() {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+	storage.Set("weight", datatype.NewString("80.5kg", time.Minute))
+	storage.BatchDelete([]interface{}{"name", "age"})
+	fmt.Println(storage.GetKeys())
+}
+
+func ExampleDataStore_Contains() {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+	fmt.Print(storage.Contains("name"))
+	fmt.Print(storage.Contains("weight"))
+}
+
+func ExampleDataStore_Count() {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+	fmt.Println(storage.Count())
+}
+
+func ExampleDataStore_Clear() {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+	storage.Clear()
 }
