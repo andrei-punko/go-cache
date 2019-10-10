@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// InterfaceListToStringList converts list of interfaces to list of strings.
 func InterfaceListToStringList(list []interface{}) []string {
 	res := make([]string, len(list))
 	for i, v := range list {
@@ -14,6 +15,7 @@ func InterfaceListToStringList(list []interface{}) []string {
 	return res
 }
 
+// StringListToInterfaceList converts list of strings to list of interfaces.
 func StringListToInterfaceList(list []string) []interface{} {
 	res := make([]interface{}, len(list))
 	for i, v := range list {
@@ -22,6 +24,7 @@ func StringListToInterfaceList(list []string) []interface{} {
 	return res
 }
 
+// Contains returns flag is array contains provided item.
 func Contains(arr []interface{}, item interface{}) bool {
 	for _, a := range arr {
 		if a == item {
@@ -31,6 +34,7 @@ func Contains(arr []interface{}, item interface{}) bool {
 	return false
 }
 
+// ContainsAll returns flag is array contains each of provided items.
 func ContainsAll(arr []interface{}, items []interface{}) bool {
 	for _, item := range items {
 		if !Contains(arr, item) {

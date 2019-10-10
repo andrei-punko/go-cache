@@ -33,6 +33,7 @@ func main() {
 	http.ListenAndServe(":8000", router)
 }
 
+// cleanupExpiredItems removes expired items from storage.
 func cleanupExpiredItems() {
 	// TODO: replace with more effective cleanup method
 	keys := Storage.GetKeys()
@@ -51,6 +52,7 @@ func cleanupExpiredItems() {
 	}
 }
 
+// CreateItem creates item and saves it to storage.
 func CreateItem(writer http.ResponseWriter, request *http.Request) {
 	var value datatype.DataType
 	err := json.NewDecoder(request.Body).Decode(&value)
@@ -73,6 +75,7 @@ func CreateItem(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(resultJson)
 }
 
+// ReadItem reads item from storage and returns it.
 func ReadItem(writer http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	key := vars["key"]
@@ -92,6 +95,7 @@ func ReadItem(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(resultJson)
 }
 
+// ReadKeys reads and returns all keys saved in storage.
 func ReadKeys(writer http.ResponseWriter, request *http.Request) {
 	keys := Storage.GetKeys()
 	resultJson, err := json.Marshal(keys)
@@ -104,6 +108,7 @@ func ReadKeys(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(resultJson)
 }
 
+// DeleteItem deletes specified item from storage.
 func DeleteItem(writer http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	key := vars["key"]
@@ -115,6 +120,7 @@ func DeleteItem(writer http.ResponseWriter, request *http.Request) {
 	populateResponseWriter(writer, http.StatusNoContent)
 }
 
+// populateResponseWriter populates response header and status code.
 func populateResponseWriter(writer http.ResponseWriter, statusCode int) {
 	writer.Header().Set("Content-Type", "application/json")
 	writer.WriteHeader(statusCode)
