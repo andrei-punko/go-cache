@@ -259,3 +259,88 @@ func ExampleDataStore_Clear() {
 	storage.Set("age", datatype.NewString("27", time.Minute))
 	storage.Clear()
 }
+
+func BenchmarkNew(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		New()
+	}
+}
+
+func BenchmarkDataStore_Set(b *testing.B) {
+	storage := New()
+
+	for n := 0; n < b.N; n++ {
+		storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	}
+}
+
+func BenchmarkDataStore_Get(b *testing.B) {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+
+	for n := 0; n < b.N; n++ {
+		storage.Get("name")
+	}
+}
+
+func BenchmarkDataStore_GetKeys(b *testing.B) {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+
+	for n := 0; n < b.N; n++ {
+		storage.GetKeys()
+	}
+}
+
+func BenchmarkDataStore_Contains(b *testing.B) {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+
+	for n := 0; n < b.N; n++ {
+		storage.Contains("name")
+	}
+}
+
+func BenchmarkDataStore_Count(b *testing.B) {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+
+	for n := 0; n < b.N; n++ {
+		storage.Count()
+	}
+}
+
+func BenchmarkDataStore_Delete(b *testing.B) {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+
+	for n := 0; n < b.N; n++ {
+		storage.Delete("name")
+	}
+}
+
+func BenchmarkDataStore_BatchDelete(b *testing.B) {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+	storage.Set("weight", datatype.NewString("80.5kg", time.Minute))
+
+	for n := 0; n < b.N; n++ {
+		storage.BatchDelete([]interface{}{"name", "age"})
+	}
+}
+
+func BenchmarkDataStore_Clear(b *testing.B) {
+	storage := New()
+	storage.Set("name", datatype.NewString("Ivan", time.Minute))
+	storage.Set("age", datatype.NewString("27", time.Minute))
+
+	for n := 0; n < b.N; n++ {
+		storage.Clear()
+	}
+}

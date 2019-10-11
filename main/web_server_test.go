@@ -187,3 +187,69 @@ func ExampleClear() {
 	router.HandleFunc("/items/keys", Clear).Methods(http.MethodDelete)
 	http.ListenAndServe(":8000", router)
 }
+
+func BenchmarkCreateItem(b *testing.B) {
+	Storage.Clear()
+
+	writer := datatype.NewStubResponseWriter()
+	itemJson := `{"value": "Ioann", "ttl": 60000000000}`
+	request, _ := http.NewRequest(http.MethodPost, "someUrl", strings.NewReader(itemJson))
+
+	for n := 0; n < b.N; n++ {
+		CreateItem(writer, request)
+	}
+}
+
+func BenchmarkReadItem(b *testing.B) {
+	Storage.Clear()
+	Storage.Set("name", datatype.NewString("Ivan", 2*time.Minute))
+	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
+
+	writer := datatype.NewStubResponseWriter()
+	request, _ := http.NewRequest(http.MethodGet, "someUrl", nil)
+	request = mux.SetURLVars(request, map[string]string{"key": "weight"})
+
+	for n := 0; n < b.N; n++ {
+		ReadItem(writer, request)
+	}
+}
+
+func BenchmarkReadKeys(b *testing.B) {
+	Storage.Clear()
+	Storage.Set("name", datatype.NewString("Ivan", 2*time.Minute))
+	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
+
+	writer := datatype.NewStubResponseWriter()
+	request, _ := http.NewRequest(http.MethodGet, "someUrl", nil)
+
+	for n := 0; n < b.N; n++ {
+		ReadKeys(writer, request)
+	}
+}
+
+func BenchmarkDeleteItem(b *testing.B) {
+	Storage.Clear()
+	Storage.Set("name", datatype.NewString("Ivan", 2*time.Minute))
+	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
+
+	writer := datatype.NewStubResponseWriter()
+	request, _ := http.NewRequest(http.MethodDelete, "someUrl", nil)
+	request = mux.SetURLVars(request, map[string]string{"key": "name"})
+
+	for n := 0; n < b.N; n++ {
+		DeleteItem(writer, request)
+	}
+}
+
+func BenchmarkClear(b *testing.B) {
+	Storage.Clear()
+	Storage.Set("name", datatype.NewString("Ivan", 2*time.Minute))
+	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
+
+	writer := datatype.NewStubResponseWriter()
+	request, _ := http.NewRequest(http.MethodDelete, "someUrl", nil)
+
+	for n := 0; n < b.N; n++ {
+		Clear(writer, request)
+	}
+}
