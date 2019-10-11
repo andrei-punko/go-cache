@@ -1,4 +1,5 @@
 # Juno Inc., Test Task: In-memory cache
+###### Task definition taken from [here](https://github.com/gojuno/test_tasks)
 
 Simple implementation of Redis-like in-memory cache
 
@@ -18,38 +19,50 @@ Optional features:
 - Operations:
   - Keys
 
----
+# Build instructions
 
-## In-memory web-cache
-
-### Build for definite OS and architecture
-`env GOOS=linux GOARCH=amd64 go build -o ./out/linux-amd64/web-cache ./main/web_server.go`
-
+##### Build for definite OS and architecture on Linux
+`env GOOS=linux GOARCH=amd64 go build -o ./out/linux-amd64/web-cache ./main/web_server.go`  
 `env GOOS=windows GOARCH=amd64 go build -o ./out/windows-amd64/web-cache.exe ./main/web_server.go`
 
-### Description of usage
+##### Build for definite OS and architecture on Windows
+`set GOOS=linux`  
+`set GOARCH=amd64`  
+`go build -o ./out/linux-amd64/web-cache ./main/web_server.go`
 
-#### Start cache using default port 8000
+`set GOOS=windows`  
+`set GOARCH=amd64`  
+`go build -o ./out/windows-amd64/web-cache.exe ./main/web_server.go`
+
+##### Put cache application into Docker image:
+`docker build -t apunko/web-cache .`
+
+# Usage description
+
+##### Start cache application using default port 8000:
 `go run ./main/web_server.go`
 
-#### Start cache using user defined port
+##### Start cache application using user defined port:
 `go run ./main/web_server.go 8005`
 
-#### Cache population with some key-value pairs
+##### Start Docker image:
+`docker run --rm -p 8000:8000 apunko/web-cache`
+
+##### Cache population with some key-value pairs:
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"value": "Ivan", "ttl": 60000000000}' -X POST http://localhost:8000/items/name`
 
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"value": "27", "ttl": 60000000000}' -X POST http://localhost:8000/items/age`
 
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"value": "80.5", "ttl": 60000000000}' -X POST http://localhost:8000/items/weight`
 
-#### Getting value by key from cache
+##### Getting value by key from cache:
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://localhost:8000/items/name`
 
-#### Getting all keys from cache
+##### Getting all keys from cache:
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://localhost:8000/items/keys`
 
-#### Deletion of some key from cache
+##### Deletion of some key from cache:
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X DELETE http://localhost:8000/items/name`
 
-#### Deletion of all keys from cache
+##### Deletion of all keys from cache:
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X DELETE http://localhost:8000/items/keys`
