@@ -9,13 +9,13 @@ import (
 	"time"
 )
 
-func TestNew(t *testing.T) {
-	dataStore := New()
+func TestNewDataStore(t *testing.T) {
+	dataStore := NewDataStore()
 	assert.Equal(t, dataStore.cache.Len(), 0, "map should be empty")
 }
 
 func TestDataStore_set(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	key := "Some key"
 	value := datatype.NewString("Some value", time.Minute)
 
@@ -25,7 +25,7 @@ func TestDataStore_set(t *testing.T) {
 }
 
 func TestDataStore_get(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	key := "Some key"
 	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
@@ -36,7 +36,7 @@ func TestDataStore_get(t *testing.T) {
 }
 
 func TestDataStore_getKeys(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
 	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
@@ -47,7 +47,7 @@ func TestDataStore_getKeys(t *testing.T) {
 }
 
 func TestDataStore_delete(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	key := "Some key"
 	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
@@ -59,7 +59,7 @@ func TestDataStore_delete(t *testing.T) {
 }
 
 func TestDataStore_batchDelete(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
 	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 	dataStore.cache.Insert("key 3", datatype.NewString("value 3", time.Minute))
@@ -73,7 +73,7 @@ func TestDataStore_batchDelete(t *testing.T) {
 }
 
 func TestDataStore_BatchDelete(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
 	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 	dataStore.cache.Insert("key 3", datatype.NewString("value 3", time.Minute))
@@ -87,7 +87,7 @@ func TestDataStore_BatchDelete(t *testing.T) {
 }
 
 func TestDataStore_contains(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	key := "Some key"
 	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
@@ -97,7 +97,7 @@ func TestDataStore_contains(t *testing.T) {
 }
 
 func TestDataStore_count(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
 	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
@@ -105,7 +105,7 @@ func TestDataStore_count(t *testing.T) {
 }
 
 func TestDataStore_clear(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
 	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
@@ -114,7 +114,7 @@ func TestDataStore_clear(t *testing.T) {
 }
 
 func TestDataStore_Set(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	key := "Some key"
 	value := datatype.NewString("Some value", time.Minute)
 
@@ -124,7 +124,7 @@ func TestDataStore_Set(t *testing.T) {
 }
 
 func TestDataStore_Get(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	key := "Some key"
 	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
@@ -141,7 +141,7 @@ func TestDataStore_Get(t *testing.T) {
 }
 
 func TestDataStore_GetKeys(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	keys := dataStore.GetKeys()
 	assert.Equal(t, []interface{}{}, keys, "Should return empty array in case of empty storage")
 
@@ -155,7 +155,7 @@ func TestDataStore_GetKeys(t *testing.T) {
 }
 
 func TestDataStore_Delete(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	key := "Some key"
 	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
@@ -167,7 +167,7 @@ func TestDataStore_Delete(t *testing.T) {
 }
 
 func TestDataStore_Contains(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	key := "Some key"
 	value := datatype.NewString("Some value", time.Minute)
 	dataStore.cache.Insert(key, value)
@@ -177,7 +177,7 @@ func TestDataStore_Contains(t *testing.T) {
 }
 
 func TestDataStore_Count(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
 	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
@@ -185,7 +185,7 @@ func TestDataStore_Count(t *testing.T) {
 }
 
 func TestDataStore_Clear(t *testing.T) {
-	dataStore := New()
+	dataStore := NewDataStore()
 	dataStore.cache.Insert("key 1", datatype.NewString("value 1", time.Minute))
 	dataStore.cache.Insert("key 2", datatype.NewString("value 2", time.Minute))
 
@@ -200,7 +200,7 @@ func TestDataStore_compareDataTypesByDeathTime(t *testing.T) {
 }
 
 func ExampleDataStore_Set() {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("phones", datatype.NewList([]interface{}{"Xiaomi", "Samsung"}, 2*time.Minute))
 	storage.Set("cards", datatype.NewDict(map[interface{}]interface{}{2: "Visa", 3: "Maestro"}, 4*time.Minute))
@@ -208,21 +208,21 @@ func ExampleDataStore_Set() {
 }
 
 func ExampleDataStore_Get() {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 	fmt.Println(storage.Get("name"))
 }
 
 func ExampleDataStore_GetKeys() {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 	fmt.Println(storage.GetKeys())
 }
 
 func ExampleDataStore_Delete() {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 	storage.Delete("name")
@@ -230,7 +230,7 @@ func ExampleDataStore_Delete() {
 }
 
 func ExampleDataStore_BatchDelete() {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 	storage.Set("weight", datatype.NewString("80.5kg", time.Minute))
@@ -239,7 +239,7 @@ func ExampleDataStore_BatchDelete() {
 }
 
 func ExampleDataStore_Contains() {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 	fmt.Print(storage.Contains("name"))
@@ -247,27 +247,27 @@ func ExampleDataStore_Contains() {
 }
 
 func ExampleDataStore_Count() {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 	fmt.Println(storage.Count())
 }
 
 func ExampleDataStore_Clear() {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 	storage.Clear()
 }
 
-func BenchmarkNew(b *testing.B) {
+func BenchmarkNewDataStore(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		New()
+		NewDataStore()
 	}
 }
 
 func BenchmarkDataStore_Set(b *testing.B) {
-	storage := New()
+	storage := NewDataStore()
 
 	for n := 0; n < b.N; n++ {
 		storage.Set("name", datatype.NewString("Ivan", time.Minute))
@@ -275,7 +275,7 @@ func BenchmarkDataStore_Set(b *testing.B) {
 }
 
 func BenchmarkDataStore_Get(b *testing.B) {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 
@@ -285,7 +285,7 @@ func BenchmarkDataStore_Get(b *testing.B) {
 }
 
 func BenchmarkDataStore_GetKeys(b *testing.B) {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 
@@ -295,7 +295,7 @@ func BenchmarkDataStore_GetKeys(b *testing.B) {
 }
 
 func BenchmarkDataStore_Contains(b *testing.B) {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 
@@ -305,7 +305,7 @@ func BenchmarkDataStore_Contains(b *testing.B) {
 }
 
 func BenchmarkDataStore_Count(b *testing.B) {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 
@@ -315,7 +315,7 @@ func BenchmarkDataStore_Count(b *testing.B) {
 }
 
 func BenchmarkDataStore_Delete(b *testing.B) {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 
@@ -325,7 +325,7 @@ func BenchmarkDataStore_Delete(b *testing.B) {
 }
 
 func BenchmarkDataStore_BatchDelete(b *testing.B) {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 	storage.Set("weight", datatype.NewString("80.5kg", time.Minute))
@@ -336,7 +336,7 @@ func BenchmarkDataStore_BatchDelete(b *testing.B) {
 }
 
 func BenchmarkDataStore_Clear(b *testing.B) {
-	storage := New()
+	storage := NewDataStore()
 	storage.Set("name", datatype.NewString("Ivan", time.Minute))
 	storage.Set("age", datatype.NewString("27", time.Minute))
 

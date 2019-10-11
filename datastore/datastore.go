@@ -12,9 +12,9 @@ type DataStore struct {
 	cache sortedmap.SortedMap
 }
 
-// New creates and initializes a new DataStore structure and then returns a reference to it.
+// NewDataStore creates and initializes a new DataStore structure and then returns a reference to it.
 // DataStore is concurrency-safe.
-func New() *DataStore {
+func NewDataStore() *DataStore {
 	return &DataStore{cache: buildSortedMap()}
 }
 

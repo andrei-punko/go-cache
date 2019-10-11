@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-var Storage = datastore.New()
+var Storage = datastore.NewDataStore()
 
 // TODO: add end-to-end load tests and commit results to repo
 func main() {
