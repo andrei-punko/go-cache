@@ -14,7 +14,6 @@ import (
 
 var Storage = datastore.NewDataStore()
 
-// TODO: add end-to-end load tests and commit results to repo
 func main() {
 	port := extractPortFromCmdParams()
 	log.Printf("Starting web-cache on port %s ...", port)

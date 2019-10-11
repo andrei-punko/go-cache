@@ -1,0 +1,28 @@
+goos: windows
+goarch: amd64
+pkg: go-cache/datastore
+BenchmarkNewDataStore-8            	 4560618	       264 ns/op
+BenchmarkDataStore_Set-8           	 3108715	       387 ns/op
+BenchmarkDataStore_Get-8           	19036951	        63.1 ns/op
+BenchmarkDataStore_GetKeys-8       	17921199	        66.4 ns/op
+BenchmarkDataStore_Contains-8      	19672195	        61.2 ns/op
+BenchmarkDataStore_Count-8         	32434360	        37.0 ns/op
+BenchmarkDataStore_Delete-8        	21028466	        56.2 ns/op
+BenchmarkDataStore_BatchDelete-8   	12902989	       103 ns/op
+BenchmarkDataStore_Clear-8         	 3314502	       374 ns/op
+PASS
+ok  	go-cache/datastore	12.741s
+PASS
+ok  	go-cache/datatype	0.337s
+goos: windows
+goarch: amd64
+pkg: go-cache/main
+BenchmarkCreateItem-8   	 3445813	       348 ns/op
+BenchmarkReadItem-8     	 1000000	      1070 ns/op
+BenchmarkReadKeys-8     	 2333649	       517 ns/op
+BenchmarkDeleteItem-8   	 7944730	       150 ns/op
+BenchmarkClear-8        	 2574830	       477 ns/op
+PASS
+ok  	go-cache/main	7.834s
+PASS
+ok  	go-cache/util	0.369s
