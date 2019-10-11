@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-func TestCreateString(t *testing.T) {
+func TestCreateItem(t *testing.T) {
 	Storage.Clear()
 
 	router := mux.NewRouter()
@@ -50,7 +50,7 @@ func TestCreateString(t *testing.T) {
 	assert.LessOrEqual(t, (time.Now().Add(dataTypeItem.Ttl).Sub(dataTypeItem.DeathTime)).Seconds(), 0.1)
 }
 
-func TestReadString(t *testing.T) {
+func TestReadItem(t *testing.T) {
 	Storage.Clear()
 	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
 
@@ -79,7 +79,7 @@ func TestReadString(t *testing.T) {
 	assert.LessOrEqual(t, (time.Now().Add(decodedObject.Ttl).Sub(decodedObject.DeathTime)).Seconds(), 0.1)
 }
 
-func TestReadStringKeys(t *testing.T) {
+func TestReadKeys(t *testing.T) {
 	Storage.Clear()
 	Storage.Set("name", datatype.NewString("Ivan", 2*time.Minute))
 	Storage.Set("weight", datatype.NewString("82.5kg", 2*time.Minute))
@@ -108,7 +108,7 @@ func TestReadStringKeys(t *testing.T) {
 	assert.Equal(t, true, util.ContainsAll(decodedObject, []interface{}{"name", "weight"}))
 }
 
-func TestDeleteString(t *testing.T) {
+func TestDeleteItem(t *testing.T) {
 	Storage.Clear()
 	Storage.Set("name", datatype.NewString("Ivan", 2*time.Minute))
 
