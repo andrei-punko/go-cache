@@ -152,3 +152,38 @@ func TestClear(t *testing.T) {
 	}
 	assert.Equal(t, 0, Storage.Count(), "Storage should be empty")
 }
+
+func ExampleCreateItem() {
+	router := mux.NewRouter()
+	router.HandleFunc("/items/{key}", CreateItem).Methods(http.MethodPost)
+	router.HandleFunc("/items/{key}", ReadItem).Methods(http.MethodGet)
+	http.ListenAndServe(":8000", router)
+}
+
+func ExampleReadItem() {
+	router := mux.NewRouter()
+	router.HandleFunc("/items/{key}", CreateItem).Methods(http.MethodPost)
+	router.HandleFunc("/items/{key}", ReadItem).Methods(http.MethodGet)
+	http.ListenAndServe(":8000", router)
+}
+
+func ExampleReadKeys() {
+	router := mux.NewRouter()
+	router.HandleFunc("/items/{key}", CreateItem).Methods(http.MethodPost)
+	router.HandleFunc("/items/keys", ReadKeys).Methods(http.MethodGet)
+	http.ListenAndServe(":8000", router)
+}
+
+func ExampleDeleteItem() {
+	router := mux.NewRouter()
+	router.HandleFunc("/items/{key}", CreateItem).Methods(http.MethodPost)
+	router.HandleFunc("/items/{key}", DeleteItem).Methods(http.MethodDelete)
+	http.ListenAndServe(":8000", router)
+}
+
+func ExampleClear() {
+	router := mux.NewRouter()
+	router.HandleFunc("/items/{key}", CreateItem).Methods(http.MethodPost)
+	router.HandleFunc("/items/keys", Clear).Methods(http.MethodDelete)
+	http.ListenAndServe(":8000", router)
+}

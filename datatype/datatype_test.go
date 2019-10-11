@@ -38,3 +38,21 @@ func TestNewDict(t *testing.T) {
 	assert.Equal(t, dataType.Ttl, duration)
 	assert.Equal(t, dataType.DeathTime, expectedDeathTime)
 }
+
+func ExampleNewString() {
+	value := "value 2"
+	duration := time.Minute
+	NewString(value, duration)
+}
+
+func ExampleNewList() {
+	value := []interface{}{2, 5, 9}
+	duration := time.Minute
+	NewList(value, duration)
+}
+
+func ExampleNewDict() {
+	value := map[interface{}]interface{}{2: "two", 5: "five"}
+	duration := time.Minute
+	NewDict(value, duration)
+}

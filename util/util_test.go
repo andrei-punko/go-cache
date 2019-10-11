@@ -30,7 +30,7 @@ func TestContains(t *testing.T) {
 }
 
 func TestContainsAll(t *testing.T) {
-	arr := []interface{}{"one", "five"}
+	arr := []interface{}{"one", "two", "five"}
 	items := []interface{}{"one", "five"}
 	items2 := []interface{}{"one", "six"}
 
@@ -40,4 +40,27 @@ func TestContainsAll(t *testing.T) {
 
 func TestRandString(t *testing.T) {
 	assert.NotEqual(t, RandString(10), RandString(10), "Generated strings should not be same")
+}
+
+func ExampleContains() {
+	arr := []interface{}{"one", "five"}
+	Contains(arr, "one")
+}
+
+func ExampleContainsAll() {
+	arr := []interface{}{"one", "five", "six"}
+	items := []interface{}{"one", "five"}
+	ContainsAll(arr, items)
+}
+
+func ExampleInterfaceListToStringList() {
+	InterfaceListToStringList([]interface{}{"str 1", "str 2"})
+}
+
+func ExampleStringListToInterfaceList() {
+	StringListToInterfaceList([]string{"str 1", "str 2"})
+}
+
+func ExampleRandString() {
+	RandString(10)
 }
