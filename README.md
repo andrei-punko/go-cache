@@ -51,9 +51,9 @@ Optional features:
 ##### Cache population with some key-value pairs:
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"value": "Ivan", "ttl": 60000000000}' -X POST http://localhost:8000/items/name`
 
-`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"value": "27", "ttl": 60000000000}' -X POST http://localhost:8000/items/age`
+`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"value": ["VISA", "Mastercard"], "ttl": 60000000000}' -X POST http://localhost:8000/items/cards`
 
-`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"value": "80.5", "ttl": 60000000000}' -X POST http://localhost:8000/items/weight`
+`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"value": {"Math": "9", "English": "7"}, "ttl": 60000000000}' -X POST http://localhost:8000/items/marks`
 
 ##### Getting value by key from cache:
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://localhost:8000/items/name`

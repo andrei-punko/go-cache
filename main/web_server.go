@@ -59,6 +59,7 @@ func CreateItem(writer http.ResponseWriter, request *http.Request) {
 	var value datatype.DataType
 	err := json.NewDecoder(request.Body).Decode(&value)
 	if err != nil {
+		log.Println("Error during json decoding")
 		populateResponseWriter(writer, http.StatusInternalServerError)
 		return
 	}
@@ -69,6 +70,7 @@ func CreateItem(writer http.ResponseWriter, request *http.Request) {
 	Storage.Set(key, value)
 	resultJson, err := json.Marshal(value)
 	if err != nil {
+		log.Println("Error during json encoding")
 		populateResponseWriter(writer, http.StatusInternalServerError)
 		return
 	}
@@ -89,6 +91,7 @@ func ReadItem(writer http.ResponseWriter, request *http.Request) {
 
 	resultJson, err := json.Marshal(value)
 	if err != nil {
+		log.Println("Error during json encoding")
 		populateResponseWriter(writer, http.StatusInternalServerError)
 		return
 	}
@@ -102,6 +105,7 @@ func ReadKeys(writer http.ResponseWriter, request *http.Request) {
 	keys := Storage.GetKeys()
 	resultJson, err := json.Marshal(keys)
 	if err != nil {
+		log.Println("Error during json encoding")
 		populateResponseWriter(writer, http.StatusInternalServerError)
 		return
 	}
