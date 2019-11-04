@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go-cache/datatype"
 	"go-cache/util"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -223,10 +224,13 @@ func BenchmarkCreateItem(b *testing.B) {
 
 	writer := datatype.NewStubResponseWriter()
 	itemJson := `{"value": "Ioann", "ttl": 60000000000}`
-	request, _ := http.NewRequest(http.MethodPost, "someUrl", strings.NewReader(itemJson))
+	reader := strings.NewReader(itemJson)
+	request, _ := http.NewRequest(http.MethodPost, "someUrl", reader)
 
 	for n := 0; n < b.N; n++ {
 		CreateItem(writer, request)
+		// Need to reset reader because it could be used once
+		reader.Seek(0, io.SeekStart)
 	}
 }
 
