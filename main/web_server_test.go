@@ -153,6 +153,36 @@ func TestClear(t *testing.T) {
 	assert.Equal(t, 0, Storage.Count(), "Storage should be empty")
 }
 
+func Test_determineIndexForCleanup(t *testing.T) {
+	Storage.Clear()
+	Storage.Set("name1", datatype.NewString("Ivan", 1*time.Second))
+	Storage.Set("name2", datatype.NewString("Ivan", 2*time.Second))
+	Storage.Set("name3", datatype.NewString("Ivan", 3*time.Second))
+	Storage.Set("name4", datatype.NewString("Ivan", 4*time.Second))
+	Storage.Set("name5", datatype.NewString("Ivan", 5*time.Second))
+	Storage.Set("name6", datatype.NewString("Ivan", 6*time.Second))
+	Storage.Set("name7", datatype.NewString("Ivan", 7*time.Second))
+
+	assert.Equal(t, -1, determineIndexForCleanup(Storage.GetKeys(), time.Now()))
+	assert.Equal(t, 1, determineIndexForCleanup(Storage.GetKeys(), time.Now().Add(2500*time.Millisecond)))
+	assert.Equal(t, 2, determineIndexForCleanup(Storage.GetKeys(), time.Now().Add(3500*time.Millisecond)))
+}
+
+func Test_isBefore(t *testing.T) {
+	Storage.Clear()
+	Storage.Set("name1", datatype.NewString("Ivan", 1*time.Second))
+	Storage.Set("name2", datatype.NewString("Ivan", 2*time.Second))
+	Storage.Set("name3", datatype.NewString("Ivan", 3*time.Second))
+	Storage.Set("name4", datatype.NewString("Ivan", 4*time.Second))
+	Storage.Set("name5", datatype.NewString("Ivan", 5*time.Second))
+
+	assert.Equal(t, true, isBefore("name1", time.Now().Add(2500*time.Millisecond)))
+	assert.Equal(t, true, isBefore("name2", time.Now().Add(2500*time.Millisecond)))
+	assert.Equal(t, false, isBefore("name3", time.Now().Add(2500*time.Millisecond)))
+	assert.Equal(t, false, isBefore("name4", time.Now().Add(2500*time.Millisecond)))
+	assert.Equal(t, false, isBefore("name5", time.Now().Add(2500*time.Millisecond)))
+}
+
 func ExampleCreateItem() {
 	router := mux.NewRouter()
 	router.HandleFunc("/items/{key}", CreateItem).Methods(http.MethodPost)

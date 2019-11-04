@@ -39,19 +39,32 @@ func extractPortFromCmdParams() string {
 // cleanupExpiredItems removes expired items from storage.
 func cleanupExpiredItems() {
 	keys := Storage.GetKeys()
-	mostRightIndex := -1
-	for index, key := range keys {
-		value, _ := Storage.Get(key.(string))
-		dataTypeItem := value.(datatype.DataType)
-		if dataTypeItem.DeathTime.Before(time.Now()) {
-			mostRightIndex = index
+	indexForCleanup := determineIndexForCleanup(keys, time.Now())
+	if indexForCleanup != -1 {
+		Storage.BatchDelete(keys[:indexForCleanup+1])
+	}
+}
+
+// determineIndexForCleanup used binary search to determine rightmost index of expired items.
+func determineIndexForCleanup(keys []interface{}, time time.Time) int {
+	leftIndex := -1
+	rightIndex := len(keys) - 1
+	for rightIndex-leftIndex > 1 {
+		index := (leftIndex + rightIndex) / 2
+		if isBefore(keys[index], time) {
+			leftIndex = index
 		} else {
-			break
+			rightIndex = index
 		}
 	}
-	if mostRightIndex != -1 {
-		Storage.BatchDelete(keys[:mostRightIndex+1])
-	}
+
+	return leftIndex
+}
+
+func isBefore(key interface{}, time time.Time) bool {
+	value, _ := Storage.Get(key.(string))
+	dataTypeItem := value.(datatype.DataType)
+	return dataTypeItem.DeathTime.Before(time)
 }
 
 // CreateItem creates item and saves it to storage.
