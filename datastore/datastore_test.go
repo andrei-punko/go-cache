@@ -3,8 +3,8 @@ package datastore
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	"go-cache/datatype"
-	"go-cache/util"
+	"github.com/andrei-punko/go-cache/datatype"
+	"github.com/andrei-punko/go-cache/util"
 	"testing"
 	"time"
 )
