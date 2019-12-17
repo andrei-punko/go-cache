@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
-	"github.com/stretchr/testify/assert"
 	"github.com/andrei-punko/go-cache/datatype"
 	"github.com/andrei-punko/go-cache/util"
+	"github.com/gorilla/mux"
+	"github.com/stretchr/testify/assert"
 	"io"
 	"net/http"
 	"net/http/httptest"

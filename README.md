@@ -22,17 +22,17 @@ Optional features:
 # Build instructions
 
 ##### Build for definite OS and architecture on Linux
-`env GOOS=linux GOARCH=amd64 go build -o ./out/linux-amd64/web-cache ./main/web_server.go`  
-`env GOOS=windows GOARCH=amd64 go build -o ./out/windows-amd64/web-cache.exe ./main/web_server.go`
+`env GOOS=linux GOARCH=amd64 go build -o ./out/linux-amd64/web-cache ./web_server.go`  
+`env GOOS=windows GOARCH=amd64 go build -o ./out/windows-amd64/web-cache.exe ./web_server.go`
 
 ##### Build for definite OS and architecture on Windows
 `set GOOS=linux`  
 `set GOARCH=amd64`  
-`go build -o ./out/linux-amd64/web-cache ./main/web_server.go`
+`go build -o ./out/linux-amd64/web-cache ./web_server.go`
 
 `set GOOS=windows`  
 `set GOARCH=amd64`  
-`go build -o ./out/windows-amd64/web-cache.exe ./main/web_server.go`
+`go build -o ./out/windows-amd64/web-cache.exe ./web_server.go`
 
 ##### Put cache application into Docker image:
 `docker build -t apunko/web-cache .`
@@ -40,10 +40,10 @@ Optional features:
 # Usage description
 
 ##### Start cache application using default port 8000:
-`go run ./main/web_server.go`
+`go run ./web_server.go`
 
 ##### Start cache application using user defined port:
-`go run ./main/web_server.go 8005`
+`go run ./web_server.go 8005`
 
 ##### Start Docker image:
 `docker run --rm -p 8000:8000 apunko/web-cache`
