@@ -1,0 +1,27 @@
+plugins {
+    id 'com.github.blindpirate.gogradle' version '0.11.4'
+}
+
+golang {
+    // go import path of project to be built, NOT local file system path!
+    packagePath = 'github.com/andrei-punko/go-cache'
+}
+
+goBuild {
+    // Cross-compile output
+    targetPlatform = ['windows-amd64', 'linux-amd64', 'linux-386']
+
+    // Output location, can be relative path (to project root) or absolute path
+    // The ${} placeholder will be rendered in cross-compile
+    outputLocation = './.gogradle/${GOOS}_${GOARCH}_${PROJECT_NAME}${GOEXE}'
+}
+
+dependencies {
+    golang {
+        build(['name':'github.com/carlescere/scheduler'])
+        build(['name':'github.com/gorilla/mux'])
+        build(['name':'github.com/json-iterator/go'])
+        build(['name':'github.com/umpc/go-sortedmap'])
+        test(['name':'github.com/stretchr/testify'])
+    }
+}
