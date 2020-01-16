@@ -1,0 +1,9 @@
+version: "3"
+services:
+  go-cache:
+    image: apunko/go-cache
+    container_name: go-cache
+    expose:
+      - 8000
+    ports:
+      - 8000:8000

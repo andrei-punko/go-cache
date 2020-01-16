@@ -44,7 +44,7 @@ Result binaries will be placed into `./gogradle` folder
 
 ##### Put cache application into Docker image:
 
-    docker build -t apunko/web-cache .
+    docker build -t apunko/go-cache .
 
 # Usage description
 
@@ -58,7 +58,11 @@ Result binaries will be placed into `./gogradle` folder
 
 ##### Start Docker image:
 
-    docker run --rm -p 8000:8000 apunko/web-cache
+    docker run --rm -p 8000:8000 apunko/go-cache
+
+#### Or using docker-compose:
+
+    docker-compose up
 
 ##### Cache population with some key-value pairs:
 
