@@ -72,18 +72,18 @@ Result binaries will be placed into `./gogradle` folder
 
     curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"value": {"Math": "9", "English": "7"}, "ttl": 60000000000}' -X POST http://localhost:8000/items/marks
 
-##### Getting value by key from cache:
+##### Getting value by key=name from cache:
 
-    curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://localhost:8000/items/name
+    curl -i http://localhost:8000/items/name
 
 ##### Getting all keys from cache:
 
-    curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://localhost:8000/items/keys
+    curl -i http://localhost:8000/items/keys
 
-##### Deletion of some key from cache:
+##### Deletion of some key-value pair from cache for key=name:
 
-    curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X DELETE http://localhost:8000/items/name
+    curl -i -X DELETE http://localhost:8000/items/name
 
-##### Deletion of all keys from cache:
+##### Cache cleanup:
 
-    curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X DELETE http://localhost:8000/items/keys
+    curl -i -X DELETE http://localhost:8000/items/keys
