@@ -1,4 +1,6 @@
 # Juno Inc., Test Task: In-memory cache
+![Go](https://github.com/andrei-punko/go-cache/workflows/Go/badge.svg)
+
 ###### Task definition taken from [here](https://github.com/gojuno/test_tasks)
 
 Simple implementation of Redis-like in-memory cache
