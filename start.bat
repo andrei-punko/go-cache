@@ -1,1 +1,1 @@
-go run ./main/web_server.go
+start .gogradle/windows_amd64_go-cache.exe
