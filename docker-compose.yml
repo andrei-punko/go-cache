@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   go-cache:
     build: ./
@@ -7,4 +8,4 @@ services:
     expose:
       - 8000
     ports:
-      - 8000:8000
+      - "8000:8000"
